@@ -1,17 +1,23 @@
 package utility;
 
+/**
+ * Classe che modella una struttura coda, usata come contenitore a modalità FIFO
+ * per i pattern frequenti scoperti a livello k da usare per generare i pattern
+ * candidati a livello k+1.
+ * 
+ * @param <T> tipo generico
+ */
 public class Queue<T> {
 
-	private Record<T> begin = null;
+	private Record begin = null;
 
-	private Record<T> end = null;
+	private Record end = null;
 
-	@SuppressWarnings("hiding")
-	private class Record<T> {
+	private class Record {
 
 		Object elem;
 
-		Record<T> next;
+		Record next;
 
 		Record(Object e) {
 			this.elem = e;
@@ -19,31 +25,34 @@ public class Queue<T> {
 		}
 	}
 
-	public boolean isEmpty() {
+	@SuppressWarnings("hiding")
+	public <T> boolean isEmpty() {
 		return this.begin == null;
 	}
 
-	public void enqueue(Object e) {
+	@SuppressWarnings("hiding")
+	public <T> void enqueue(Object e) {
 		if (this.isEmpty())
-			this.begin = this.end = new Record<T>(e);
+			this.begin = this.end = new Record(e);
 		else {
-			this.end.next = new Record<T>(e);
+			this.end.next = new Record(e);
 			this.end = this.end.next;
 		}
 	}
 
-	// l metodo che legge il primo elemento aggiunto alla coda
-	public Object first() throws EmptyQueueException {
+	@SuppressWarnings("hiding")
+	public <T> Object first() throws EmptyQueueException {
 		if (!isEmpty()) {
 			return this.begin.elem;
 		} else
-			throw new EmptyQueueException("La coda è vuota");
+			throw new EmptyQueueException();
 	}
 
-	public void dequeue() throws EmptyQueueException {
+	@SuppressWarnings("hiding")
+	public <T> void dequeue() throws EmptyQueueException {
 		if (this.begin == this.end) {
 			if (this.begin == null)
-				throw new EmptyQueueException("La coda è vuota");
+				throw new EmptyQueueException();
 			else
 				this.begin = this.end = null;
 		} else {

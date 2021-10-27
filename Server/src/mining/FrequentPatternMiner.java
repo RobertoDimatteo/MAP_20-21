@@ -7,22 +7,37 @@ import utility.EmptyQueueException;
 import java.io.*;
 import java.util.*;
 
-// classe FrequentPatternMiner che include i metodi per la scoperta di pattern frequenti con Algoritmo APRIORI.
-@SuppressWarnings("serial")
+/**
+ * Classe che include i metodi per la scoperta di pattern frequenti con
+ * Algoritmo APRIORI.
+ */
 public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializable {
 
 	// ATTRIBUTI
 
-	private LinkedList<FrequentPattern> outputFP = new LinkedList<FrequentPattern>(); // lista che contiene riferimenti
-																						// a oggetti istanza della
-																						// classe
-	// FrequentPattern che definiscono il pattern.
+	/**
+	 * ID necessario per serializzare gli oggetti di questa classe.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Lista che contiene riferimenti a oggetti istanza della classe
+	 * &lt;FrequentPattern&gt; che definiscono il pattern.
+	 */
+	private LinkedList<FrequentPattern> outputFP = new LinkedList<FrequentPattern>();
 
 	// COSTRUTTORE
 
-	// Costruttore che genera tutti i pattern k = 1 frequenti e per ognuno di questi
-	// genera quelli con k>1 richiamando expandFrequentPatterns ()
-	// I pattern sono memorizzati nel membro OutputFP.
+	/**
+	 * Costruttore che genera tutti i pattern frequenti k=1 e per ognuno di questi
+	 * genera quelli con k>1 richiamando &lt;expandFrequentPatterns()&gt;. I pattern
+	 * sono poi memorizzati nel membro &lt;OutputFP&gt;.
+	 * 
+	 * @param data   insieme delle transazioni
+	 * @param minSup minimo supporto
+	 * 
+	 * @throws EmptySetException lanciata quando l'insieme di training risulta vuoto
+	 */
 	public FrequentPatternMiner(Data data, float minSup) throws EmptySetException {
 		Queue<FrequentPattern> fpQueue = new Queue<FrequentPattern>();
 
@@ -37,7 +52,6 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 						fp.setSupport(fp.computeSupport(data));
 						if (fp.getSupport() >= minSup) { // 1-FP CANDIDATE
 							fpQueue.enqueue(fp);
-							// System.out.println(fp);
 							outputFP.addLast(fp);
 						}
 					}
@@ -55,7 +69,6 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 							fp.setSupport(fp.computeSupport(data));
 							if (fp.getSupport() >= minSup) { // 1-FP CANDIDATE
 								fpQueue.enqueue(fp);
-								// System.out.println(fp);
 								outputFP.addLast(fp);
 							}
 							estrInf = estrSup;
@@ -66,23 +79,40 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 			outputFP = expandFrequentPatterns(data, minSup, fpQueue, outputFP);
 			sort();
 		} else
-			throw new EmptySetException("L'insieme di training risulta vuoto");
+			throw new EmptySetException();
 	}
 
 	// METODI
 
-	// Crea un nuovo pattern a cui aggiunge tutti gli item di FP e il parametro
-	// item.
+	/**
+	 * Crea un nuovo pattern a cui aggiunge tutti gli item di &lt;FP&gt; e il
+	 * parametro &lt;item&gt;.
+	 * 
+	 * @param FP   pattern da raffinare
+	 * @param item item generico da aggiungere al pattern
+	 * 
+	 * @return nuovo pattern ottenuto per effetto del raffinamento
+	 */
 	FrequentPattern refineFrequentPattern(FrequentPattern FP, Item item) {
 		FrequentPattern newFp = new FrequentPattern(FP);
 		newFp.addItem(item);
 		return newFp;
 	}
 
-	// Finché fpQueue contiene elementi, si estrae un elemento dalla coda fpQueue,
-	// si generano i raffinamenti per questo (aggiungendo un nuovo item non
-	// incluso). Per ogni raffinamento si verifica se è frequente e, in caso
-	// affermativo, lo si aggiunge sia ad fpQueue sia ad outputFP.
+	/**
+	 * Finché &lt;fpQueue&gt; contiene elementi, si estrae un elemento dalla coda
+	 * &lt;fpQueue&gt; e si generano i raffinamenti per questo (aggiungendo un nuovo
+	 * item non incluso). Per ogni raffinamento si verifica se è frequente e, in
+	 * caso affermativo, lo si aggiunge sia ad &lt;fpQueue&gt; sia ad
+	 * &lt;outputFP&gt;.
+	 * 
+	 * @param data     insieme delle transazioni
+	 * @param minSup   minimo supporto
+	 * @param fpQueue  coda contenente i pattern da valutare
+	 * @param outputFP lista dei pattern frequenti già estratti
+	 * 
+	 * @return lista popolata con pattern frequenti a k>1
+	 */
 	private LinkedList<FrequentPattern> expandFrequentPatterns(Data data, float minSup, Queue<FrequentPattern> fpQueue,
 			LinkedList<FrequentPattern> outputFP) {
 		while (true) {
@@ -114,7 +144,6 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 								newFP.setSupport(newFP.computeSupport(data));
 								if (newFP.getSupport() >= minSup) {
 									fpQueue.enqueue(newFP);
-									// System.out.println(newFP);
 									outputFP.addLast(newFP);
 								}
 							}
@@ -132,7 +161,6 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 									newFP.setSupport(newFP.computeSupport(data));
 									if (newFP.getSupport() >= minSup) {
 										fpQueue.enqueue(newFP);
-										// System.out.println(newFP);
 										outputFP.addLast(newFP);
 									}
 									estrInf = estrSup;
@@ -145,27 +173,52 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 				}
 
 			} catch (EmptyQueueException codaVuota) {
-				// System.err.println(codaVuota);
+				System.err.println(codaVuota);
 				break;
 			}
 		}
 		return outputFP;
 	}
 
+	/**
+	 * Richiama il metodo &lt;sort()&gt; della classe &lt;List&gt; su
+	 * &lt;outputFP&gt;.
+	 */
 	private void sort() {
 		Collections.sort(outputFP);
 	}
 
-	// metodo che si occupa di serializzare l’oggetto riferito da this nel file il
-	// cui nome è passato come parametro
+	/**
+	 * Serializza l’oggetto riferito da &lt;this&gt; nel file il cui nome è passato
+	 * come parametro.
+	 * 
+	 * @param nomeFile nome del file
+	 * 
+	 * @throws FileNotFoundException lanciata quando fallisce l'apertura di un file
+	 * @throws IOException           lanciata per segnalare operazioni di I/O
+	 *                               fallite o interrotte
+	 */
 	public void salva(String nomeFile) throws FileNotFoundException, IOException {
 		ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(nomeFile));
 		outStream.writeObject(this);
 		outStream.close();
 	}
 
-	// metodo che si occupa di leggere e restituire l’oggetto come è memorizzato nel
-	// file il cui nome è passato come parametro
+	/**
+	 * Legge e restituisce l’oggetto così come è memorizzato nel file il cui nome è
+	 * passato come parametro.
+	 * 
+	 * @param nomeFile nome del file
+	 * 
+	 * @return frequent pattern presente nel file
+	 * 
+	 * @throws FileNotFoundException  lanciata quando fallisce l'apertura di un file
+	 * @throws IOException            lanciata per segnalare operazioni di I/O
+	 *                                fallite o interrotte
+	 * @throws ClassNotFoundException lanciata quando si cerca di caricare una
+	 *                                classe tramite uno specifico nome ma non viene
+	 *                                trovato alcun riferimento
+	 */
 	public static FrequentPatternMiner carica(String nomeFile)
 			throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(nomeFile));
@@ -174,9 +227,12 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 		return fps;
 	}
 
-	// Scandisce OutputFp al fine di concatenare in un'unica stringa i pattern //DA
-	// CONTROLLARE
-	// frequenti letti.
+	/**
+	 * Scandisce &lt;outputFP&gt; al fine di concatenare in un'unica stringa i
+	 * pattern frequenti letti.
+	 * 
+	 * @return stringa concatenata di pattern
+	 */
 	public String toString() {
 		String outputStr = "";
 		int i = 0;
@@ -187,7 +243,12 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 		return outputStr;
 	}
 
-	@Override
+	/**
+	 * Restituisce un oggetto iteratore della classe &lt;FrequentPattern&gt; usato
+	 * per scandire l'oggetto &lt;outputFP&gt;.
+	 * 
+	 * @return un oggetto iteratore
+	 */
 	public Iterator<FrequentPattern> iterator() {
 		return outputFP.iterator();
 	}

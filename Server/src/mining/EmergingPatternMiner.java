@@ -5,23 +5,39 @@ import data.EmptySetException;
 import java.util.*;
 import java.io.*;
 
-// classe EmergingPatternMiner che modella la scoperta di emerging pattern partire dalla lista di frequent pattern.
-@SuppressWarnings("serial")
+/**
+ * Classe che modella la scoperta di emerging pattern a partire dalla lista di
+ * frequent pattern.
+ */
 public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializable {
 
 	// ATTRIBUTI
 
-	private LinkedList<EmergingPattern> epList = new LinkedList<EmergingPattern>(); // lista che contiene riferimenti a
-																					// oggetti istanza della classe
-	// EmergingPattern
-	// che definiscono il pattern.
+	/**
+	 * ID necessario per serializzare gli oggetti di questa classe.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Lista che contiene riferimenti a oggetti istanza della classe
+	 * &lt;EmergingPattern&gt; che definiscono il pattern.
+	 */
+	private LinkedList<EmergingPattern> epList = new LinkedList<EmergingPattern>();
 
 	// COSTRUTTORE
 
-	// Si scandiscono tutti i frequent pattern in fpList , per ognuno di essi si
-	// calcola il grow rate usando dataBackground e se tale valore è maggiore uguale
-	// di minG allora il pattern è aggiunto ad epList (fare uso del metodo
-	// computeEmergingPattern).
+	/**
+	 * Costruttore che scandisce tutti i frequent pattern in &lt;fpList&gt;, per
+	 * ognuno di essi calcola il grow rate usando &lt;dataBackground&gt; e se tale
+	 * valore è maggiore uguale di &lt;minG&gt; allora il pattern è aggiunto ad
+	 * &lt;epList&gt;.
+	 * 
+	 * @param dataBackground dataset di background
+	 * @param fpList         lista dei pattern frequenti già estratti
+	 * @param minG           minimo grow rate
+	 * 
+	 * @throws EmptySetException lanciata quando l'insieme di training risulta vuoto
+	 */
 	public EmergingPatternMiner(Data dataBackground, FrequentPatternMiner fpList, float minG) throws EmptySetException {
 		if (dataBackground.getNumberOfExamples() != 0) {
 			for (FrequentPattern fp : fpList) {
@@ -29,19 +45,26 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 					EmergingPattern ep = computeEmergingPattern(dataBackground, fp, minG);
 					epList.add(ep);
 				} catch (EmergingPatternException patternError) {
-					// System.err.println(patternError);
+					System.err.println(patternError);
 				}
 			}
 			sort();
 		} else
-			throw new EmptySetException("L'insieme di training risulta vuoto");
+			throw new EmptySetException();
 	}
 
 	// METODI
 
-	// Si ottiene da fp il suo supporto relativo al dataset target. Si calcola il
-	// supporto di fp relativo al dataset di background. Si calcola il grow rate
-	// come rapporto dei due supporti
+	/**
+	 * Ottiene da &lt;fp&gt; il suo supporto relativo al dataset target, calcola il
+	 * supporto di &lt;fp&gt; relativo al dataset di background e infine calcola il
+	 * grow rate come rapporto dei due supporti.
+	 * 
+	 * @param dataBackground dataset di background
+	 * @param fp             un frequent pattern
+	 * 
+	 * @return grow rate finale calcolato
+	 */
 	float computeGrowRate(Data dataBackground, FrequentPattern fp) {
 		float targetSupp = fp.getSupport();
 		float backgroundSupp = fp.computeSupport(dataBackground);
@@ -49,9 +72,19 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 		return growrate;
 	}
 
-	// Verifica che il grow rate di fp sia maggiore uguale di minGR. In caso
-	// affermativo
-	// crea un oggetto EmergingPattern da fp.
+	/**
+	 * Verifica che il grow rate di &lt;fp&gt; sia maggiore uguale di &lt;minGr&gt;
+	 * e in caso affermativo crea un nuovo emerging pattern.
+	 * 
+	 * @param dataBackground dataset di background
+	 * @param fp             un frequent pattern
+	 * @param minGR          minimo grow rate
+	 * 
+	 * @return emerging pattern creato dal frequent pattern
+	 * 
+	 * @throws EmergingPatternException lanciata quando il pattern non soddisfa le
+	 *                                  condizioni del minimo grow rate
+	 */
 	EmergingPattern computeEmergingPattern(Data dataBackground, FrequentPattern fp, float minGR)
 			throws EmergingPatternException {
 		float growrate = computeGrowRate(dataBackground, fp);
@@ -59,23 +92,49 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 			EmergingPattern ep = new EmergingPattern(fp, growrate);
 			return ep;
 		} else
-			throw new EmergingPatternException("Il pattern corrente non soddisfa le condizioni del minimo growrate");
+			throw new EmergingPatternException();
 	}
 
+	/**
+	 * Richiama il metodo &lt;sort()&gt; della classe &lt;List&gt; su &lt;epList&gt;
+	 * passandogli come parametro un'istanziazione della classe
+	 * &lt;ComparatorGrowRate&gt;.
+	 */
 	private void sort() {
 		Collections.sort(epList, new ComparatorGrowRate());
 	}
 
-	// metodo che si occupa di serializzare l’oggetto riferito da this nel file il
-	// cui nome è passato come parametro
+	/**
+	 * Serializza l’oggetto riferito da &lt;this&gt; nel file il cui nome è passato
+	 * come parametro.
+	 * 
+	 * @param nomeFile nome del file
+	 * 
+	 * @throws FileNotFoundException lanciata quando fallisce l'apertura di un file
+	 * @throws IOException           lanciata per segnalare operazioni di I/O
+	 *                               fallite o interrotte
+	 */
 	public void salva(String nomeFile) throws FileNotFoundException, IOException {
 		ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(nomeFile));
 		outStream.writeObject(this);
 		outStream.close();
 	}
 
-	// metodo che si occupa di leggere e restituire l’oggetto come è memorizzato nel
-	// file il cui nome è passato come parametro.
+	/**
+	 * Legge e restituisce l’oggetto così come è memorizzato nel file il cui nome è
+	 * passato come parametro.
+	 * 
+	 * @param nomeFile nome del file
+	 * 
+	 * @return emerging pattern presente nel file
+	 * 
+	 * @throws FileNotFoundException  lanciata quando fallisce l'apertura di un file
+	 * @throws IOException            lanciata per segnalare operazioni di I/O
+	 *                                fallite o interrotte
+	 * @throws ClassNotFoundException lanciata quando si cerca di caricare una
+	 *                                classe tramite uno specifico nome ma non viene
+	 *                                trovato alcun riferimento
+	 */
 	public static EmergingPatternMiner carica(String nomeFile)
 			throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(nomeFile));
@@ -84,8 +143,12 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 		return eps;
 	}
 
-	// Scandisce epList al fine di concatenare in un'unica stringa le stringhe
-	// rappresentati i pattern emergenti letti. //CONTROLLA SE FUNZIONA
+	/**
+	 * Scandisce &lt;epList&gt; al fine di concatenare in un'unica stringa le
+	 * stringhe rappresentanti i pattern emergenti letti.
+	 * 
+	 * @return stringa concatenata di pattern
+	 */
 	public String toString() {
 		String epListStr = "";
 		int i = 0;
@@ -96,8 +159,14 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 		return epListStr;
 	}
 
-	@Override
+	/**
+	 * Restituisce un oggetto iteratore della classe &lt;EmergingPattern&gt; usato
+	 * per scandire l'oggetto &lt;epList&gt;.
+	 * 
+	 * @return un oggetto iteratore
+	 */
 	public Iterator<EmergingPattern> iterator() {
 		return epList.iterator();
 	}
+	
 }
