@@ -3,19 +3,38 @@ package mining;
 import data.Attribute;
 import java.io.*;
 
-// classe astratta Item che modella un generico item (coppia attributo-valore, per esempio Outlook=”Sunny”).
-@SuppressWarnings("serial")
+/**
+ * Classe astratta che modella un generico item che potrà essere di tipo
+ * discreto o continuo (coppia attributo-valore).
+ */
 abstract class Item implements Serializable {
 
 	// ATTRIBUTI
 
-	private Attribute attribute; // attributo coinvolto nell'item
-	private Object value; // valore assegnato all'attributo
+	/**
+	 * ID necessario per serializzare gli oggetti di questa classe.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Attributo coinvolto nell'item.
+	 */
+	private Attribute attribute;
+
+	/**
+	 * Valore assegnato all'attributo.
+	 */
+	private Object value;
 
 	// COSTRUTTORE
 
-	// inizializza i valori dei membri attributi con i parametri passati come
-	// argomento al costruttore.
+	/**
+	 * Costruttore che inizializza i membri &lt;attribute&gt; e &lt;value&gt; con i
+	 * valori passati come parametri.
+	 * 
+	 * @param attribute attributo coinvolto nell'item
+	 * @param value     valore assegnato all'attributo
+	 */
 	public Item(Attribute attribute, Object value) {
 		this.attribute = attribute;
 		this.value = value;
@@ -24,21 +43,41 @@ abstract class Item implements Serializable {
 
 	// METODI
 
-	// restituisce il membro attribute.
+	/**
+	 * Restituisce il membro &lt;attribute&gt;.
+	 * 
+	 * @return attributo coinvolto nell'item
+	 */
 	public Attribute getAttribute() {
 		return attribute;
 	}
 
-	// restituisce il membro value.
+	/**
+	 * Restituisce il membro &lt;value&gt;.
+	 * 
+	 * @return valore assegnato all'attributo
+	 */
 	public Object getValue() {
 		return value;
 	}
 
-	// da realizzare nelle sottoclassi.
+	/**
+	 * Metodo astratto per la verifica di un insieme di item. Realizzato nelle
+	 * sottoclassi.
+	 *
+	 * @param value valore assegnato all'attributo
+	 * 
+	 * @return un valore booleano
+	 */
 	abstract boolean checkItemCondition(Object value);
 
-	// restituisce una stringa nella forma <attribute>=<value>.
+	/**
+	 * Restituisce una stringa nella forma &lt;attribute&gt;=&lt;value&gt;.
+	 * 
+	 * @return stringa concatenata
+	 */
 	public String toString() {
 		return "(" + getAttribute() + "=" + getValue() + ")";
 	}
+
 }

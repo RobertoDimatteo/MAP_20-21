@@ -6,25 +6,49 @@ import data.ContinuousAttribute;
 import java.util.*;
 import java.io.*;
 
-// classe FrequentPattern che rappresenta un itemset (o pattern) frequente.
-@SuppressWarnings("serial")
+/**
+ * Classe che rappresenta un itemset (o pattern) frequente.
+ */
 class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Serializable {
 
 	// ATTRIBUTI
 
-	private LinkedList<Item> fp; // array che contiene riferimenti a oggetti istanza della classe Item che
-	// definiscono il pattern.
-	private float support; // valore di supporto calcolato per il pattern fp.
+	/**
+	 * ID necessario per serializzare gli oggetti di questa classe.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Lista che contiene i riferimenti a oggetti istanza della classe &lt;Item&gt;
+	 * che definiscono il frequent pattern.
+	 * 
+	 * @uml.property name = "fp"
+	 * @uml.associationEnd multiplicity = "(0 -1)"
+	 */
+	private LinkedList<Item> fp;
+
+	/**
+	 * Valore di supporto calcolato per il pattern &lt;fp&gt;.
+	 * 
+	 * @uml.property name = "support"
+	 */
+	private float support;
 
 	// COSTRUTTORI
 
-	// costruttore che alloca fp come array di dimensione 0.
+	/**
+	 * Costruttore che alloca &lt;fp&gt; come lista di item.
+	 */
 	public FrequentPattern() {
 		fp = new LinkedList<Item>();
 	}
 
-	// costruttore che alloca fp e support come copia del frequent pattern FP
-	// passato.
+	/**
+	 * Costruttore che alloca &lt;fp&gt; e &lt;support&gt; come copia del frequent
+	 * pattern &lt;FP&gt; passato come parametro.
+	 * 
+	 * @param FP frequent pattern da copiare
+	 */
 	public FrequentPattern(FrequentPattern FP) {
 		fp = new LinkedList<Item>();
 		for (Item item : FP)
@@ -36,32 +60,61 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 
 	// METODI
 
-	// si inserisce in ultima posizione l’argomento della procedura.
+	/**
+	 * Inserisce nell'ultima posizione di &lt;fp&gt; l’argomento della procedura.
+	 * 
+	 * @param item generico item
+	 */
 	void addItem(Item item) {
 		fp.addLast(item);
 	}
 
-	// restituisce l'item in posizione index di fp.
+	/**
+	 * Restituisce l'item in posizione &lt;index&gt; di &lt;fp&gt;
+	 * 
+	 * @param index valore numerico che rappresenta un indice
+	 * 
+	 * @return item che si trova in posizione &lt;index&gt; di &lt;fp&gt;
+	 */
 	public Item getItem(int index) {
 		return fp.get(index);
 	}
 
-	// restituisce il membro support.
+	/**
+	 * Restituisce il membro &lt;support&gt;.
+	 * 
+	 * @return valore di supporto calcolato per il pattern
+	 */
 	public float getSupport() {
 		return support;
 	}
 
-	// restituisce la dimensione (lunghezza) di fp
+	/**
+	 * Restituisce la dimensione (lunghezza) di &lt;fp&gt;.
+	 * 
+	 * @return lunghezza del pattern
+	 */
 	public int getPatternLength() {
 		return fp.size();
 	}
 
+	/**
+	 * Restituisce il membro &lt;fp&gt;.
+	 * 
+	 * @return lista di item
+	 */
 	public LinkedList<Item> getFP() {
 		return fp;
 	}
 
-	// calcola il supporto del pattern rappresentato dall'oggetto this rispetto al
-	// dataset data passato come argomento.
+	/**
+	 * Calcola il supporto del pattern rappresentato dall'oggetto &lt;this&gt;
+	 * rispetto al dataset &lt;data&gt; passato come argomento.
+	 * 
+	 * @param data insieme delle transazioni
+	 * 
+	 * @return valore di supporto del pattern nel dataset &lt;data&gt;
+	 */
 	protected float computeSupport(Data data) {
 		int suppCount = 0;
 		// indice esempio
@@ -99,13 +152,21 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 
 	}
 
-	// assegna al membro support il parametro della procedura.
+	/**
+	 * Assegna al membro &lt;support&gt; il parametro della procedura.
+	 * 
+	 * @param support valore di supporto calcolato per il pattern
+	 */
 	void setSupport(float support) {
 		this.support = support;
 	}
 
-	// si scandisce fp al fine di concatenare in una stringa la rappresentazione
-	// degli item. Alla fine si concatena il supporto.
+	/**
+	 * Scandisce &lt;fp&gt; per concatenare in una stringa la rappresentazione degli
+	 * item e alla fine viene concatenato anche il supporto.
+	 * 
+	 * @return stringa concatenata
+	 */
 	public String toString() {
 		String value = "";
 		int fpCont = 1;
@@ -120,13 +181,24 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 		return value;
 	}
 
-	@Override
+	/**
+	 * Restituisce un oggetto iteratore della classe &lt;Item&gt; usato per scandire
+	 * l'oggetto fp.
+	 * 
+	 * @return un oggetto iteratore
+	 */
 	public Iterator<Item> iterator() {
 		return fp.iterator();
 	}
 
-	@Override
-	// confronto tra pattern rispetto al supporto.
+	/**
+	 * Confronta i pattern rispetto al valore del loro supporto.
+	 * 
+	 * @param o un frequent pattern da confrontare
+	 * 
+	 * @return 0 se il supporto è uguale; 1 se il primo supporto è minore del
+	 *         secondo; -1 altrimenti.
+	 */
 	public int compareTo(FrequentPattern o) {
 		if (o.getSupport() == getSupport()) {
 			return 0;

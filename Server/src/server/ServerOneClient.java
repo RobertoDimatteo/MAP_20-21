@@ -12,21 +12,46 @@ import mining.FrequentPatternMiner;
 
 import java.io.*;
 
-// modella la comunicazione con un unico client.
-public class ServerOneClient extends Thread implements Serializable{
+/**
+ * Classe che modella la comunicazione con un unico client.
+ */
+public class ServerOneClient extends Thread implements Serializable {
 
 	// ATTRIBUTI
 
-	private Socket socket; // Terminale lato server del canale tramite cui avviene lo scambio di oggetti
-							// client-server
-	private ObjectInputStream in; // flusso di oggetti in input al server.
-	private ObjectOutputStream out; // flusso di oggetti in output dal server al client.
+	/**
+	 * ID necessario per serializzare gli oggetti di questa classe.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Terminale lato server del canale tramite cui avviene lo scambio di oggetti
+	 * client-server.
+	 */
+	private Socket socket;
+
+	/**
+	 * Flusso di oggetti in input al server.
+	 */
+	private ObjectInputStream in;
+
+	/**
+	 * Flusso di oggetti in output dal server al client.
+	 */
+	private ObjectOutputStream out;
 
 	// COSTRUTTORE
 
-	// Inizializza il membro this.socket con il parametro in input al costruttore.
-	// Inizializza in e out, avvia il thread invocando il metodo start() (ereditato
-	// da Thread).
+	/**
+	 * Costruttore che inizializza il membro &lt;this.socket&gt; con il parametro in
+	 * input, inizializza &lt;in&gt; e &lt;out&gt; e avvia il thread invocando il
+	 * metodo &lt;start()&gt; ereditato dalla classe &lt;Thread&gt;.
+	 * 
+	 * @param socket terminale lato server del canale
+	 * 
+	 * @throws IOException lanciata per segnalare operazioni di I/O fallite o
+	 *                     interrotte
+	 */
 	public ServerOneClient(Socket socket) throws IOException {
 
 		this.socket = socket;
@@ -40,10 +65,13 @@ public class ServerOneClient extends Thread implements Serializable{
 
 	// METODI
 
-	// Ridefinisce il metodo run della classe Thread (variazione funzionale).
-	// Gestisce le richieste del client (apprendere pattern/regole e popolare con
-	// queste archive; salvare archive in un file, avvalorare archive con oggetto
-	// serializzato nel file)
+	/**
+	 * Gestisce le richieste del client: 
+	 * 
+	 * 1) apprendere pattern/regole e popolare con queste il pattern 
+	 * 2) salvare il pattern in un file 
+	 * 3) avvalorare il pattern con un oggetto serializzato nel file.
+	 */
 	public void run() {
 
 		try {
@@ -67,8 +95,7 @@ public class ServerOneClient extends Thread implements Serializable{
 						try {
 							fpMiner.salva(nameFile + minsup + ".dat");
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+							System.err.println(e1);
 						}
 
 						try {
@@ -78,27 +105,24 @@ public class ServerOneClient extends Thread implements Serializable{
 							try {
 								epMiner.salva(nameFile + minsup + "_minGr" + minGr + ".dat");
 							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+								System.err.println(e1);
 							}
 						} catch (IOException | EmptySetException e) {
-							e.printStackTrace();
+							System.err.println(e);
 
 						}
 					} catch (IOException | EmptySetException e) {
-						e.printStackTrace();
+						System.err.println(e);
 					}
-				} else {
+				} else if (opzione == 2) {
 					try {
-						FrequentPatternMiner fpMiner = FrequentPatternMiner
-								.carica(nameFile + minsup + ".dat");
+						FrequentPatternMiner fpMiner = FrequentPatternMiner.carica(nameFile + minsup + ".dat");
 						out.writeObject(fpMiner.toString());
 						EmergingPatternMiner epMiner = EmergingPatternMiner
 								.carica(nameFile + minsup + "_minGr" + minGr + ".dat");
 						out.writeObject(epMiner.toString());
 					} catch (ClassNotFoundException | IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.err.println(e);
 					}
 					char risp = (char) in.readObject();
 					if (risp == 'n')
@@ -107,7 +131,7 @@ public class ServerOneClient extends Thread implements Serializable{
 			}
 		} catch (IOException | ClassNotFoundException | DatabaseConnectionException | SQLException
 				| NoValueException e) {
-			e.printStackTrace();
+			System.err.println(e);
 		} finally {
 			try {
 				socket.close();

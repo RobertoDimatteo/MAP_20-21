@@ -2,18 +2,33 @@ package mining;
 
 import java.util.Iterator;
 
-//classe EmergingPattern che estende FrequentPattern e modella un pattern emergente.
-@SuppressWarnings("serial")
+/**
+ * Classe che estende &lt;FrequentPattern&gt; e modella un pattern emergente.
+ */
 class EmergingPattern extends FrequentPattern {
 
 	// ATTRIBUTI
 
-	private float growrate; // grow rate del pattern.
+	/**
+	 * ID necessario per serializzare gli oggetti di questa classe.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Grow rate del pattern.
+	 */
+	private float growrate;
 
 	// COSTRUTTORE
 
-	// chiama il costruttore della superclasse passandogli fp e inizializza il
-	// membro growrate con l’argomento del costruttore.
+	/**
+	 * Costruttore che invoca il costruttore della superclasse
+	 * &lt;FrequentPattern&gt; passandogli &lt;fp&gt; e inizializza il membro
+	 * &lt;growrate&gt; con il valore passato come parametro.
+	 * 
+	 * @param fp       un pattern
+	 * @param growrate grow rate del pattern
+	 */
 	public EmergingPattern(FrequentPattern fp, float growrate) {
 		super(fp);
 		this.growrate = growrate;
@@ -21,14 +36,21 @@ class EmergingPattern extends FrequentPattern {
 
 	// METODI
 
-	// restituisce il valore del membro growrate.
+	/**
+	 * Restituisce il valore del membro &lt;growrate&gt;.
+	 * 
+	 * @return grow rate del pattern
+	 */
 	public float getGrowRate() {
 		return growrate;
 	}
 
-	// Si crea e restituisce la stringa che rappresenta il pattern,il suo
-	// supporto e il suo growrate (fare uso del toString() ereditato da
-	// FrequentPattern.
+	/**
+	 * Crea la stringa che rappresenta il pattern, il suo supporto e il suo grow
+	 * rate.
+	 * 
+	 * @return stringa concatenata
+	 */
 	public String toString() {
 		String value = "";
 		int epCont = 1;

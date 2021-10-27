@@ -3,33 +3,46 @@ package server;
 import java.io.*;
 import java.net.*;
 
-//modella un server in grado di accettare la richiesta trasmesse 
-//da un generico Client e istanzia un oggetto della classe ServerOneClient 
-//che si occupera di servire le richieste del client in un thred dedicato. 
-//Il Server sarà registrato su una porta predefinita (al di fuori del range 1-1024), per esempio 8080.
+/**
+ * Classe che modella un server in grado di accettare le richieste trasmesse da
+ * un generico client e istanzia un oggetto della classe &lt;ServerOneClient&gt;
+ * che si occuperà di servire le richieste in un thread dedicato. Il server sarà
+ * registrato su una porta predefinita (al di fuori del range 1-1024).
+ */
 public class MultiServer {
 
 	// ATTRIBUTI
 
-	public static final int PORT = 8080;
+	/**
+	 * Numero di porta su cui il server è in ascolto.
+	 */
+	public int PORT = 8080;
 
-	// invoca il metodo privato run.
-	public MultiServer() throws IOException {
+	/**
+	 * Costruttore che inizializza il numero di porta (default 8080) e invoca il
+	 * metodo &lt;run()&gt;;
+	 * 
+	 * @param port numero di porta
+	 * 
+	 * @throws IOException lanciata per segnalare operazioni di I/O fallite o
+	 *                     interrotte
+	 */
+	public MultiServer(int port) throws IOException {
+		this.PORT = port;
 		run();
 	}
 
-	// crea un oggetto istanza di MultiServer.
-	public static void main(String[] args) throws IOException {
-		new MultiServer();
-
-	}
-
-	// assegna ad una variabile locale s il riferimento ad una istanza della classe
-	// ServerSocket creata usando la porta PORT. s si pone in attesa di richieste di
-	// connessione da parte di client in risposta alle quali viene restituito
-	// l’oggetto Socket da passare come argomento al costruttore della classe
-	// ServerOneClient.
-	private void run() throws IOException { // DA RIVEDERE
+	/**
+	 * Assegna ad una variabile locale &lt;s&gt; il riferimento ad una istanza della
+	 * classe &lt;ServerSocket&gt; creata usando la porta &lt;PORT&gt;, la quale poi
+	 * si pone in attesa di richieste di connessione da parte del client in risposta
+	 * alle quali viene restituito l’oggetto &lt;Socket&gt; da passare come
+	 * argomento al costruttore della classe &lt;ServerOneClient&gt;.
+	 * 
+	 * @throws IOException lanciata per segnalare operazioni di I/O fallite o
+	 *                     interrotte
+	 */
+	private void run() throws IOException {
 		ServerSocket s = new ServerSocket(PORT);
 		System.out.println("Server Avviato");
 

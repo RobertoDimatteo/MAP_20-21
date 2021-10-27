@@ -2,19 +2,37 @@ package mining;
 
 import java.io.*;
 
-// modella un intervallo reale [inf ,sup[
-@SuppressWarnings("serial")
+/**
+ * Classe che modella un intervallo reale del tipo [inf ,sup[.
+ */
 public class Interval implements Serializable {
 
 	// ATTRIBUTI
 
-	private float inf; // estremo inferiore
-	private float sup; // estremo superiore
+	/**
+	 * ID necessario per serializzare gli oggetti di questa classe.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Estremo inferiore.
+	 */
+	private float inf;
+
+	/**
+	 * Estremo superiore.
+	 */
+	private float sup;
 
 	// COSTRUTTORE
 
-	// Avvalora i due attributi inf e sup con i parametri del
-	// costruttore
+	/**
+	 * Costruttore che avvalora i membri &lt;inf&gt; e &lt;sup&gt; con i valori
+	 * passati come parametri.
+	 * 
+	 * @param inf estremo inferiore
+	 * @param sup estremo superiore
+	 */
 	Interval(float inf, float sup) {
 		this.inf = inf;
 		this.sup = sup;
@@ -22,35 +40,62 @@ public class Interval implements Serializable {
 
 	// METODI
 
-	// avvalora inf con il parametro passato
+	/**
+	 * Avvalora il membro &lt;inf&gt; con il parametro passato.
+	 * 
+	 * @param inf estremo inferiore
+	 */
 	void setInf(float inf) {
 		this.inf = inf;
 	}
 
-	// avvalora sup con il parametro passato
+	/**
+	 * Avvalora il membro &lt;sup&gt; con il parametro passato.
+	 * 
+	 * @param sup estremo superiore
+	 */
 	void setSup(float sup) {
 		this.sup = sup;
 	}
 
-	// restituisce inf
+	/**
+	 * Restituisce il membro &lt;inf&gt;.
+	 * 
+	 * @return estremo inferiore
+	 */
 	float getInf() {
 		return inf;
 	}
 
-	// restituisce sup
+	/**
+	 * Restituisce il membro &lt;sup&gt;.
+	 * 
+	 * @return estremo superiore
+	 */
 	float getSup() {
 		return sup;
 	}
 
-	// restituisce vero se il parametro è maggiore uguale di inf e minore di sup,
-	// false altrimenti
+	/**
+	 * Esegue un controllo sul parametro &lt;value&gt; per verificare se sia
+	 * maggiore uguale di &lt;inf&gt; e minore di &lt;sup&gt;.
+	 * 
+	 * @param value valore assunto da un attributo continuo
+	 * 
+	 * @return vero se value è maggiore uguale di inf e minore di sup; falso
+	 *         altrimenti.
+	 */
 	boolean checkValueInclusion(float value) {
 		return value >= inf && value < sup;
 	}
 
-	// rappresenta in una stringa gli estremi dell’intervallo e restituisce tale
-	// stringa
+	/**
+	 * Rappresenta in una stringa gli estremi dell’intervallo.
+	 * 
+	 * @return stringa rappresentante gli estremi dell'intervallo
+	 */
 	public String toString() {
 		return "[" + inf + "," + sup + "[";
 	}
+	
 }
