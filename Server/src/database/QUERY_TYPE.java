@@ -1,7 +1,7 @@
 package database;
 
 /*
- * classe enumerativa fornita dal docente
+ * Classe enumerativa.
  */
 public enum QUERY_TYPE {
 	MIN, MAX

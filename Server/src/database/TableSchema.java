@@ -6,12 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
-// modella lo schema di una tabella nel database relazionale
+/**
+ * Classe che modella lo schema di una tabella nel database relazionale.
+ */
 public class TableSchema {
+
+	// ATTRIBUTI
+
+	@SuppressWarnings("unused")
 	private Connection connection;
+
+	// COSTRUTTORE
 
 	public TableSchema(String tableName, Connection connection) throws SQLException {
 		this.connection = connection;
@@ -38,17 +45,26 @@ public class TableSchema {
 
 		}
 		res.close();
-
 	}
 
+	// INNER CLASS
+
 	public class Column {
+
+		// ATTRIBUTI
+
 		private String name;
+
 		private String type;
+
+		// COSTRUTTORE
 
 		Column(String name, String type) {
 			this.name = name;
 			this.type = type;
 		}
+
+		// METODI
 
 		public String getColumnName() {
 			return name;
@@ -61,9 +77,12 @@ public class TableSchema {
 		public String toString() {
 			return name + ":" + type;
 		}
+
 	}
 
 	List<Column> tableSchema = new ArrayList<Column>();
+
+	// METODI
 
 	public int getNumberOfAttributes() {
 		return tableSchema.size();
