@@ -1,15 +1,14 @@
-//********************************************************************
-//  Keyboard.java       Author: Lewis and Loftus
-//
-//  Facilitates keyboard input by abstracting details about input
-//  parsing, conversions, and exception handling.
-//********************************************************************
-
 package keyboardinput;
 
 import java.io.*;
 import java.util.*;
 
+/**
+ * Class that facilitates keyboard input by abstracting details about input parsing,
+ * conversions, and exception handling.
+ * 
+ * @author Lewis and Loftus
+ */
 public class Keyboard {
 	// ************* Error Handling Section **************************
 
@@ -17,42 +16,50 @@ public class Keyboard {
 
 	private static int errorCount = 0;
 
-	// -----------------------------------------------------------------
-	// Returns the current error count.
-	// -----------------------------------------------------------------
-
+	/**
+	 * Returns the current error count.
+	 * 
+	 * @return current error count
+	 */
 	public static int getErrorCount() {
 		return errorCount;
 	}
 
-	// -----------------------------------------------------------------
-	// Resets the current error count to zero.
-	// -----------------------------------------------------------------
-
+	/**
+	 * Resets the current error count to zero.
+	 * 
+	 * @param count
+	 */
 	public static void resetErrorCount(int count) {
 		errorCount = 0;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns a boolean indicating whether input errors are
-	// currently printed to standard output.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a boolean indicating whether input errors are currently printed to
+	 * standard output.
+	 * 
+	 * @return boolean indicating whether input errors are currently printed to
+	 *         standard output
+	 */
 	public static boolean getPrintErrors() {
 		return printErrors;
 	}
 
-	// -----------------------------------------------------------------
-	// Sets a boolean indicating whether input errors are to be
-	// printed to standard output.
-	// -----------------------------------------------------------------
+	/**
+	 * Sets a boolean indicating whether input errors are to be printed to standard
+	 * output.
+	 * 
+	 * @param flag boolean
+	 */
 	public static void setPrintErrors(boolean flag) {
 		printErrors = flag;
 	}
 
-	// -----------------------------------------------------------------
-	// Increments the error count and prints the error message if
-	// appropriate.
-	// -----------------------------------------------------------------
+	/**
+	 * Increments the error count and prints the error message if appropriate.
+	 * 
+	 * @param str error message
+	 */
 	private static void error(String str) {
 		errorCount++;
 		if (printErrors)
@@ -67,17 +74,22 @@ public class Keyboard {
 
 	private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-	// -----------------------------------------------------------------
-	// Gets the next input token assuming it may be on subsequent
-	// input lines.
-	// -----------------------------------------------------------------
+	/**
+	 * Gets the next input token assuming it may be on subsequent input lines.
+	 * 
+	 * @return next input token assuming it may be on subsequent input lines
+	 */
 	private static String getNextToken() {
 		return getNextToken(true);
 	}
 
-	// -----------------------------------------------------------------
-	// Gets the next input token, which may already have been read.
-	// -----------------------------------------------------------------
+	/**
+	 * Gets the next input token, which may already have been read.
+	 * 
+	 * @param skip -
+	 * 
+	 * @return next input token, which may already have been read
+	 */
 	private static String getNextToken(boolean skip) {
 		String token;
 
@@ -91,11 +103,14 @@ public class Keyboard {
 		return token;
 	}
 
-	// -----------------------------------------------------------------
-	// Gets the next token from the input, which may come from the
-	// current input line or a subsequent one. The parameter
-	// determines if subsequent lines are used.
-	// -----------------------------------------------------------------
+	/**
+	 * Gets the next token from the input, which may come from the current input
+	 * line or a subsequent one. The parameter determines if subsequent lines are
+	 * used.
+	 * 
+	 * @param skip determines if subsequent lines are used
+	 * @return the next token from the input
+	 */
 	private static String getNextInputToken(boolean skip) {
 		final String delimiters = " \t\n\r\f";
 		String token = null;
@@ -117,19 +132,23 @@ public class Keyboard {
 		return token;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns true if there are no more tokens to read on the
-	// current input line.
-	// -----------------------------------------------------------------
+	/**
+	 * Checks if there are no more tokens to read.
+	 * 
+	 * @return true if there are no more tokens to read on the current input line,
+	 *         else false
+	 */
 	public static boolean endOfLine() {
 		return !reader.hasMoreTokens();
 	}
 
 	// ************* Reading Section *********************************
 
-	// -----------------------------------------------------------------
-	// Returns a string read from standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a string read from standard input.
+	 * 
+	 * @return string read from standard input
+	 */
 	public static String readString() {
 		String str;
 
@@ -145,10 +164,11 @@ public class Keyboard {
 		return str;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns a space-delimited substring (a word) read from
-	// standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a space-delimited substring (a word) read from standard input.
+	 * 
+	 * @return space-delimited substring read from standard input
+	 */
 	public static String readWord() {
 		String token;
 		try {
@@ -160,9 +180,11 @@ public class Keyboard {
 		return token;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns a boolean read from standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a boolean read from standard input.
+	 * 
+	 * @return boolean read from standard input
+	 */
 	public static boolean readBoolean() {
 		String token = getNextToken();
 		boolean bool;
@@ -182,9 +204,11 @@ public class Keyboard {
 		return bool;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns a character read from standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a character read from standard input.
+	 * 
+	 * @return character read from standard input
+	 */
 	public static char readChar() {
 		String token = getNextToken(false);
 		char value;
@@ -202,9 +226,11 @@ public class Keyboard {
 		return value;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns an integer read from standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns an integer read from standard input.
+	 * 
+	 * @return integer read from standard input
+	 */
 	public static int readInt() {
 		String token = getNextToken();
 		int value;
@@ -217,9 +243,11 @@ public class Keyboard {
 		return value;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns a long integer read from standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a long integer read from standard input.
+	 * 
+	 * @return long integer read from standard input
+	 */
 	public static long readLong() {
 		String token = getNextToken();
 		long value;
@@ -232,9 +260,11 @@ public class Keyboard {
 		return value;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns a float read from standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a float read from standard input.
+	 * 
+	 * @return float read from standard input
+	 */
 	@SuppressWarnings("removal")
 	public static float readFloat() {
 		String token = getNextToken();
@@ -248,9 +278,11 @@ public class Keyboard {
 		return value;
 	}
 
-	// -----------------------------------------------------------------
-	// Returns a double read from standard input.
-	// -----------------------------------------------------------------
+	/**
+	 * Returns a double read from standard input.
+	 * 
+	 * @return double read from standard input
+	 */
 	@SuppressWarnings("removal")
 	public static double readDouble() {
 		String token = getNextToken();
@@ -263,4 +295,5 @@ public class Keyboard {
 		}
 		return value;
 	}
+
 }

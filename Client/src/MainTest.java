@@ -5,10 +5,27 @@ import java.sql.SQLException;
 
 import keyboardinput.Keyboard;
 
-public class MainTest  implements Serializable{
+/**
+ * Classe tramite la quale il client contatta il server usando IP e numero di porta
+ * su cui il server è in ascolto.
+ * Una volta instaurata la connessione il client trasmette le sue richieste al server
+ * e ne aspetta la risposta.
+ */
+public class MainTest implements Serializable{
 
 	/**
+	 * Metodo main che crea l'oggetto InetAddess che modella l'indirizzo del
+	 * server e l'oggetto socket che deve collegarsi a tale server.
+	 * Inizializza i flussi di oggetti in e out per la trasmissione e ricezione di oggetti
+	 * a e dal server.
+	 * Interagisce con l’utente mostrando due opzioni:
+	 * 1) Nuova scoperta.
+	 * 2) Risultati in archivio.
+	 * In entrambi i casi trasmette la relativa richiesta e i necessari parametri al server
+	 * e ne aspetta la risposta che sarà poi stampata a video.
+	 * 
 	 * @param args
+	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException{
 		Socket socket;
@@ -17,7 +34,7 @@ public class MainTest  implements Serializable{
 			InetAddress addr = InetAddress.getByName(args[0]);
 			System.out.println("addr = " + addr + "\nport =" + args[1]);
 			socket = new Socket(addr, new Integer(args[1]));
-		}else {
+		} else{
 			InetAddress addr = InetAddress.getByName("127.0.0.1"); // indirizzo server locale
 			int port = 8080;
 			System.out.println("addr = " + addr + "\nport=" + port);
@@ -65,23 +82,22 @@ public class MainTest  implements Serializable{
 						out.writeObject(targetName);
 						out.writeObject(backgroundName);
 						out.writeObject(nameFile);
+						
 						String fpMiner = (String) (in.readObject());
-
 						System.out.println("Frequent patterns");
 						System.out.println(fpMiner);
 
 						String epMiner = (String) (in.readObject());
-
 						System.out.println("Emerging patterns");
 						System.out.println(epMiner);
 					} catch (IOException | ClassNotFoundException e) {
 						e.printStackTrace();
 					}
-				}else {
+				} else{
 					throw new IOException();
 				}
 			} catch (IOException e) {
-				System.out.println("Nomi tabelle inserite errati");
+				System.err.println("Nomi tabelle inserite errati");
 			}
 			System.out.println("Vuoi ripetere?(s/n)");
 			risp = Keyboard.readChar();

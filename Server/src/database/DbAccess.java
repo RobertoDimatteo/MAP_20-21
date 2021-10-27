@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import javax.management.InstanceNotFoundException;
 
 /**
- * Gestisce l'accesso al DB per la lettura dei dati di training
+ * Classe che gestisce l'accesso al database per la lettura dei dati di
+ * training.
  * 
  * @author Map Tutor
  *
@@ -16,35 +17,66 @@ public class DbAccess {
 
 	// ATTRIBUTI
 
-	private final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver"; // Per utilizzare questo Driver scaricare e
-																			// aggiungere al classpath il connettore
-																			// mysql connector)
-	private final String DBMS = "jdbc:mysql"; // protocollo e sottoprotocollo
-	private final String SERVER = "localhost"; // contiene l’identificativo del server su cui risiede la base di dati
-	private final int PORT = 3306; // La porta su cui il DBMS MySQL accetta le connessioni
-	private final String DATABASE = "Map"; // contiene il nome della base di dati
-	private final String USER_ID = "Student"; // il nome dell’utente per l’accesso alla base di dati
-	private final String PASSWORD = "map"; // contiene la password di autenticazione per l’utente identificato da
-											// USER_ID
+	/**
+	 * Driver.
+	 */
+	private final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
-	private Connection conn; // gestisce una connessione
+	/**
+	 * Protocollo e sottoprotocollo.
+	 */
+	private final String DBMS = "jdbc:mysql";
+
+	/**
+	 * Identificativo del server su cui risiede il database.
+	 */
+	private final String SERVER = "localhost";
+
+	/**
+	 * La porta su cui il DBMS MySQL accetta le connessioni.
+	 */
+	private final int PORT = 3306;
+ 
+	/**
+	 * Nome del database a cui connettersi.
+	 */
+	private final String DATABASE = "Map";
+
+	/**
+	 * Nome dell'utente per l'accesso al database.
+	 */
+	private final String USER_ID = "Student";
+
+	/**
+	 * Password di autenticazione per l'utente identificato da &lt;USER_ID&gt;.
+	 */
+	private final String PASSWORD = "map";
+
+	/**
+	 * Gestisce una connessione.
+	 */
+	private Connection conn;
 
 	// METODI
 
-	// metodo che impartisce al class loader l’ordine di caricare il driver mysql,
-	// inizializza la connessione riferita da conn
+	/**
+	 * Impartisce al class loader l’ordine di caricare il driver MYSQL
+	 * e inizializza la connessione riferita da &lt;conn&gt;.
+	 * 
+	 * @throws DatabaseConnectionException lanciata quando fallisce la connessione
+	 *                                     al database
+	 */
+	@SuppressWarnings("deprecation")
 	public void initConnection() throws DatabaseConnectionException {
 		String connectionString = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE + "?user=" + USER_ID
 				+ "&password=" + PASSWORD + "&serverTimezone=UTC";
-		try {
 
+		try {
 			Class.forName(DRIVER_CLASS_NAME).newInstance();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new DatabaseConnectionException(e.toString());
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new DatabaseConnectionException(e.toString());
 		} catch (ClassNotFoundException e) {
@@ -63,12 +95,18 @@ public class DbAccess {
 
 	}
 
-	// restituisce conn;
+	/**
+	 * Restituisce la connessione &lt;conn&gt;.
+	 * 
+	 * @return connessione
+	 */
 	public Connection getConnection() {
 		return conn;
 	}
 
-	// chiude la connessione conn;
+	/**
+	 * Chiude la connessione &lt;conn&gt;.
+	 */
 	public void closeConnection() {
 		try {
 			conn.close();
