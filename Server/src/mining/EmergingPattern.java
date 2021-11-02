@@ -29,7 +29,7 @@ class EmergingPattern extends FrequentPattern {
 	 * @param fp       un pattern
 	 * @param growrate grow rate del pattern
 	 */
-	public EmergingPattern(FrequentPattern fp, float growrate) {
+	EmergingPattern(FrequentPattern fp, float growrate) {
 		super(fp);
 		this.growrate = growrate;
 	}
@@ -41,7 +41,7 @@ class EmergingPattern extends FrequentPattern {
 	 * 
 	 * @return grow rate del pattern
 	 */
-	public float getGrowRate() {
+	float getGrowRate() {
 		return growrate;
 	}
 

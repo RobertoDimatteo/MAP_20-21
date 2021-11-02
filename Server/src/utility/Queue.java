@@ -45,20 +45,20 @@ public class Queue<T> {
 		if (!isEmpty()) {
 			return this.begin.elem;
 		} else
-			throw new EmptyQueueException();
+			throw new EmptyQueueException("La coda è vuota");
 	}
 
 	@SuppressWarnings("hiding")
 	public <T> void dequeue() throws EmptyQueueException {
 		if (this.begin == this.end) {
 			if (this.begin == null)
-				throw new EmptyQueueException();
+				throw new EmptyQueueException("La coda è vuota");
 			else
 				this.begin = this.end = null;
 		} else {
 			begin = begin.next;
 		}
-
+		
 	}
 
 }

@@ -35,7 +35,7 @@ abstract class Item implements Serializable {
 	 * @param attribute attributo coinvolto nell'item
 	 * @param value     valore assegnato all'attributo
 	 */
-	public Item(Attribute attribute, Object value) {
+	Item(Attribute attribute, Object value) {
 		this.attribute = attribute;
 		this.value = value;
 
@@ -48,7 +48,7 @@ abstract class Item implements Serializable {
 	 * 
 	 * @return attributo coinvolto nell'item
 	 */
-	public Attribute getAttribute() {
+	Attribute getAttribute() {
 		return attribute;
 	}
 
@@ -57,7 +57,7 @@ abstract class Item implements Serializable {
 	 * 
 	 * @return valore assegnato all'attributo
 	 */
-	public Object getValue() {
+	Object getValue() {
 		return value;
 	}
 
@@ -69,7 +69,7 @@ abstract class Item implements Serializable {
 	 * 
 	 * @return un valore booleano
 	 */
-	abstract boolean checkItemCondition(Object value);
+	protected abstract boolean checkItemCondition(Object value);
 
 	/**
 	 * Restituisce una stringa nella forma &lt;attribute&gt;=&lt;value&gt;.

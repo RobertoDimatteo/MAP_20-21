@@ -93,7 +93,7 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 	 * 
 	 * @return nuovo pattern ottenuto per effetto del raffinamento
 	 */
-	FrequentPattern refineFrequentPattern(FrequentPattern FP, Item item) {
+	private FrequentPattern refineFrequentPattern(FrequentPattern FP, Item item) {
 		FrequentPattern newFp = new FrequentPattern(FP);
 		newFp.addItem(item);
 		return newFp;
@@ -173,7 +173,6 @@ public class FrequentPatternMiner implements Iterable<FrequentPattern>, Serializ
 				}
 
 			} catch (EmptyQueueException codaVuota) {
-				System.err.println(codaVuota);
 				break;
 			}
 		}

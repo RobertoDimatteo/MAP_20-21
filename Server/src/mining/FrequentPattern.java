@@ -39,7 +39,7 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 	/**
 	 * Costruttore che alloca &lt;fp&gt; come lista di item.
 	 */
-	public FrequentPattern() {
+	FrequentPattern() {
 		fp = new LinkedList<Item>();
 	}
 
@@ -49,7 +49,7 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 	 * 
 	 * @param FP frequent pattern da copiare
 	 */
-	public FrequentPattern(FrequentPattern FP) {
+	FrequentPattern(FrequentPattern FP) {
 		fp = new LinkedList<Item>();
 		for (Item item : FP)
 			fp.add(item);
@@ -76,7 +76,7 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 	 * 
 	 * @return item che si trova in posizione &lt;index&gt; di &lt;fp&gt;
 	 */
-	public Item getItem(int index) {
+	Item getItem(int index) {
 		return fp.get(index);
 	}
 
@@ -85,7 +85,7 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 	 * 
 	 * @return valore di supporto calcolato per il pattern
 	 */
-	public float getSupport() {
+	float getSupport() {
 		return support;
 	}
 
@@ -94,7 +94,7 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 	 * 
 	 * @return lunghezza del pattern
 	 */
-	public int getPatternLength() {
+	int getPatternLength() {
 		return fp.size();
 	}
 
@@ -103,7 +103,7 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 	 * 
 	 * @return lista di item
 	 */
-	public LinkedList<Item> getFP() {
+	LinkedList<Item> getFP() {
 		return fp;
 	}
 
@@ -115,7 +115,7 @@ class FrequentPattern implements Iterable<Item>, Comparable<FrequentPattern>, Se
 	 * 
 	 * @return valore di supporto del pattern nel dataset &lt;data&gt;
 	 */
-	protected float computeSupport(Data data) {
+	float computeSupport(Data data) {
 		int suppCount = 0;
 		// indice esempio
 		for (int i = 0; i < data.getNumberOfExamples(); i++) {

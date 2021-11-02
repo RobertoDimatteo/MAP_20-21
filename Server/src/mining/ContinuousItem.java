@@ -6,7 +6,7 @@ import data.ContinuousAttribute;
  * Sottoclasse concreta che estende la classe astratta &lt;Item&gt; e modella la
  * coppia &lt;Attributo continuo - Intervallo di valori&gt;.
  */
-public class ContinuousItem extends Item {
+class ContinuousItem extends Item {
 
 	// ATTRIBUTI
 
@@ -24,7 +24,7 @@ public class ContinuousItem extends Item {
 	 * @param attribute attributo continuo coinvolto nel continuous item
 	 * @param value     valore che rappresenta un intervallo
 	 */
-	public ContinuousItem(ContinuousAttribute attribute, Interval value) {
+	ContinuousItem(ContinuousAttribute attribute, Interval value) {
 		super(attribute, value);
 	}
 
@@ -39,7 +39,7 @@ public class ContinuousItem extends Item {
 	 * @return vero se il valore è incluso tra gli estremi dell'intervallo; falso
 	 *         altrimenti.
 	 */
-	boolean checkItemCondition(Object value) {
+	protected boolean checkItemCondition(Object value) {
 		Interval i = (Interval) this.getValue();
 		return i.checkValueInclusion((Float) value);
 	}

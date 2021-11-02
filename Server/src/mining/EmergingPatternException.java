@@ -12,11 +12,10 @@ public class EmergingPatternException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Costruttore che stampa un messaggio di errore che avverte che il pattern
-	 * corrente non soddisfa la condizione di minimo grow rate.
+	 * Costruttore.
 	 */
 	public EmergingPatternException() {
-		System.err.println("Il pattern corrente non soddisfa le condizioni del minimo growrate");
+		
 	}
 
 	/**

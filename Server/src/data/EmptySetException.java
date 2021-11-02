@@ -16,11 +16,10 @@ public class EmptySetException extends Exception {
 	// COSTRUTTORI
 
 	/**
-	 * Costruttore che stampa un messaggio che avverte che l'insieme di training è
-	 * vuoto.
+	 * Costruttore.
 	 */
 	public EmptySetException() {
-		System.err.println("Il set è vuoto");
+		
 	}
 
 	/**

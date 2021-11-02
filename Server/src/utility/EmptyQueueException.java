@@ -16,11 +16,10 @@ public class EmptyQueueException extends Exception {
 	// COSTRUTTORE
 
 	/**
-	 * Costruttore che stampa un messaggio di errore che avverte che la coda risulta
-	 * vuota.
+	 * Costruttore.
 	 */
 	public EmptyQueueException() {
-		System.err.println("La coda è vuota");
+		
 	}
 
 	/**
@@ -32,4 +31,5 @@ public class EmptyQueueException extends Exception {
 	public EmptyQueueException(String message) {
 		super(message);
 	}
+
 }

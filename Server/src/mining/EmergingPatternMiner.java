@@ -45,12 +45,12 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 					EmergingPattern ep = computeEmergingPattern(dataBackground, fp, minG);
 					epList.add(ep);
 				} catch (EmergingPatternException patternError) {
-					System.err.println(patternError);
+					
 				}
 			}
 			sort();
 		} else
-			throw new EmptySetException();
+			throw new EmptySetException("Il set è vuoto");
 	}
 
 	// METODI
@@ -65,7 +65,7 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 	 * 
 	 * @return grow rate finale calcolato
 	 */
-	float computeGrowRate(Data dataBackground, FrequentPattern fp) {
+	private float computeGrowRate(Data dataBackground, FrequentPattern fp) {
 		float targetSupp = fp.getSupport();
 		float backgroundSupp = fp.computeSupport(dataBackground);
 		float growrate = targetSupp / backgroundSupp;
@@ -85,14 +85,14 @@ public class EmergingPatternMiner implements Iterable<EmergingPattern>, Serializ
 	 * @throws EmergingPatternException lanciata quando il pattern non soddisfa le
 	 *                                  condizioni del minimo grow rate
 	 */
-	EmergingPattern computeEmergingPattern(Data dataBackground, FrequentPattern fp, float minGR)
+	private EmergingPattern computeEmergingPattern(Data dataBackground, FrequentPattern fp, float minGR)
 			throws EmergingPatternException {
 		float growrate = computeGrowRate(dataBackground, fp);
 		if (growrate >= minGR) {
 			EmergingPattern ep = new EmergingPattern(fp, growrate);
 			return ep;
 		} else
-			throw new EmergingPatternException();
+			throw new EmergingPatternException("Il pattern corrente non soddisfa le condizioni del minimo growrate");
 	}
 
 	/**
