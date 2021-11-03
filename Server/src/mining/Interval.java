@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * Classe che modella un intervallo reale del tipo [inf ,sup[.
  */
-public class Interval implements Serializable {
+class Interval implements Serializable {
 
 	// ATTRIBUTI
 
@@ -82,7 +82,7 @@ public class Interval implements Serializable {
 	 * 
 	 * @param value valore assunto da un attributo continuo
 	 * 
-	 * @return vero se value è maggiore uguale di inf e minore di sup; falso
+	 * @return vero se value Ã¨ maggiore uguale di inf e minore di sup; falso
 	 *         altrimenti.
 	 */
 	boolean checkValueInclusion(float value) {
@@ -90,7 +90,7 @@ public class Interval implements Serializable {
 	}
 
 	/**
-	 * Rappresenta in una stringa gli estremi dell’intervallo.
+	 * Rappresenta in una stringa gli estremi dellâ€™intervallo.
 	 * 
 	 * @return stringa rappresentante gli estremi dell'intervallo
 	 */
