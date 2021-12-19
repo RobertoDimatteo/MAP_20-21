@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import javax.management.InstanceNotFoundException;
 
 /**
  * Classe che gestisce l'accesso al database per la lettura dei dati di

@@ -28,7 +28,7 @@ public class MainTestClient implements Serializable {
 	 * 
 	 * Interagisce con l’utente mostrando tre opzioni: 
 	 * 1) Nuova scoperta. 
-	 * 2) Risultati in archivio.
+	 * 2) Risultati in archivio. 
 	 * 3) Exit.
 	 * 
 	 * In entrambi i primi due casi trasmette la relativa richiesta e i necessari
@@ -45,12 +45,12 @@ public class MainTestClient implements Serializable {
 
 		if (args.length != 0) {
 			InetAddress addr = InetAddress.getByName(args[0]);
-			System.out.println("addr = " + addr + "\nport =" + args[1]);
+			System.out.println("addr = " + addr + "\nport = " + args[1]);
 			socket = new Socket(addr, new Integer(args[1]));
 		} else {
 			InetAddress addr = InetAddress.getByName("127.0.0.1"); // indirizzo server locale
 			int port = 8080;
-			System.out.println("addr = " + addr + "\nport=" + port);
+			System.out.println("addr = " + addr + "\nport = " + port);
 			socket = new Socket(addr, port);
 		}
 		System.out.println(socket);
@@ -61,7 +61,8 @@ public class MainTestClient implements Serializable {
 
 		char risp = 's';
 		do {
-			System.out.println("Scegli una opzione:");
+			out.writeObject(risp); // stringa inviata per far fermare l'esecuzione di un client
+			System.out.println("\nScegli una opzione:");
 			int opzione;
 			do {
 				System.out.println("1: Nuova scoperta");
@@ -105,12 +106,12 @@ public class MainTestClient implements Serializable {
 						out.writeObject(nameFile);
 						String fpMiner = (String) (in.readObject());
 
-						System.out.println("Frequent patterns");
+						System.out.println("Frequent patterns\n");
 						System.out.println(fpMiner);
 
 						String epMiner = (String) (in.readObject());
 
-						System.out.println("Emerging patterns");
+						System.out.println("Emerging patterns\n");
 						System.out.println(epMiner);
 					} catch (IOException | ClassNotFoundException e) {
 						System.err.println(e);
@@ -124,7 +125,7 @@ public class MainTestClient implements Serializable {
 			System.out.println("Vuoi ripetere?(s/n)");
 			risp = Keyboard.readChar();
 		} while (risp != 'n');
-		out.writeObject(risp); // stringa inviata per far fermare l'esecuzione di un client
+		System.out.println("Grazie... Arrivederci");
 	}
 
 }

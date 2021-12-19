@@ -76,6 +76,7 @@ public class ServerOneClient extends Thread implements Serializable {
 
 		try {
 			while (true) {
+				char risp = (char) in.readObject();
 				int opzione = (int) (in.readObject());
 				float minsup = (float) (in.readObject());
 				float minGr = (float) (in.readObject());
@@ -124,10 +125,9 @@ public class ServerOneClient extends Thread implements Serializable {
 					} catch (ClassNotFoundException | IOException e) {
 						System.err.println(e);
 					}
-					char risp = (char) in.readObject();
-					if (risp == 'n')
-						break;
 				}
+				if (risp == 'n')
+					break;
 			}
 		} catch (IOException | ClassNotFoundException | DatabaseConnectionException | SQLException
 				| NoValueException e) {
