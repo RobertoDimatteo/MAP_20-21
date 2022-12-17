@@ -1,0 +1,97 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#pane{
+	-fx-background-radius: 5.0;
+}
+
+#welcome{
+   -fx-font-size: 40.0px;
+   -fx-font-family: "Arial Black";
+   -fx-fill: #0a5e1f;
+   -fx-effect: innershadow( three-pass-box , rgba(0.0,0.0,0.0,0.7) , 6.0, 0.0 , 0.0 , 2.0 );
+}
+
+#infotext{
+	-fx-fill: #042b05;
+}
+
+#minsup{
+	-fx-background-radius: 12.0;
+}
+
+#minGr{
+	-fx-background-radius: 12.0;
+}
+
+#minsup:focused{
+	    -fx-border-radius: 12.0;
+}
+
+#minGr:focused{
+	    -fx-border-radius: 12.0;
+}
+
+#help{
+	-fx-background-radius: 15.0;
+}
+
+#help:focused{
+		-fx-border-radius: 15.0;
+}
+
+#help:hover{
+		-fx-border-radius: 15.0;
+}
+
+.button {
+	-fx-background-radius: 12.0;
+}
+
+/* Bottone dopo click */
+.button:focused
+{
+	-fx-border-radius: 12.0;
+    -fx-border-color:  #0a5e1f;
+}
+
+/* Mouse sul bottone */
+.button:hover {
+	-fx-border-radius: 12.0;
+    -fx-border-color:  #0a5e1f;
+}
+
+
+/* Click sul bottone */
+.button:pressed, .button:selected {
+    -fx-text-fill: #FFF;
+    -fx-background-color: #c3d6c8;
+	-fx-border-radius: 12.0;
+    -fx-border-color:  #0a5e1f;
+}
+
+/* Text field dopo click */
+.text-field:focused{
+    -fx-border-color: #0a5e1f;
+}
+
+.text-area{
+    -fx-background-radius: 5.0;
+}
+
+.text-area:focused{
+  -fx-background-radius: 5.0;
+  -fx-border-color: #0a5e1f;
+}
+
+.text-area .scroll-bar .thumb{
+    -fx-background-radius : 5;
+    -fx-cursor: CLOSED_HAND;
+}
+
+.text-area .scroll-bar .thumb:hover{
+	-fx-background-color: #c3d6c8;
+}
+
+.radio-button:selected>.radio>.dot {
+    -fx-background-color: #042b05;
+}

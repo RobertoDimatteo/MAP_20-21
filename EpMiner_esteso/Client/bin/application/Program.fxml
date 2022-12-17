@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="612.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Program">
+   <children>
+      <Button fx:id="esci" layoutX="516.0" layoutY="569.0" mnemonicParsing="false" onAction="#chiudiProgramma" prefHeight="29.0" prefWidth="74.0" text="Esci">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="indietro" layoutX="423.0" layoutY="569.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="29.0" prefWidth="84.0" text="Indietro">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <TextArea fx:id="risultati" editable="false" layoutX="31.0" layoutY="321.0" prefHeight="235.0" prefWidth="542.0" wrapText="true">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></TextArea>
+      <Button fx:id="richiesta" layoutX="31.0" layoutY="277.0" mnemonicParsing="false" onAction="#elaboraRichiesta" prefHeight="29.0" prefWidth="144.0" text="Elabora Richiesta">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="cancella" layoutX="489.0" layoutY="277.0" mnemonicParsing="false" onAction="#cancellaCampi" prefHeight="29.0" prefWidth="84.0" text="Cancella">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="help" layoutX="188.0" layoutY="277.0" mnemonicParsing="false" onAction="#help" prefHeight="29.0" prefWidth="20.0" text="?">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <RadioButton fx:id="nuovo" layoutX="31.0" layoutY="204.0" mnemonicParsing="false" onAction="#nuovoSelezionato" text="Nuova Scoperta">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="archivio" layoutX="31.0" layoutY="232.0" mnemonicParsing="false" onAction="#archivioSelezionato" text="Risultati in Archivio">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </RadioButton>
+      <TextField fx:id="tabellaTarget" layoutX="256.0" layoutY="32.0" prefHeight="25.0" prefWidth="275.0" />
+      <Text layoutX="44.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome tabella Target" />
+      <Text layoutX="44.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome tabella Background" />
+      <TextField fx:id="tabellaBackground" layoutX="256.0" layoutY="70.0" prefHeight="25.0" prefWidth="275.0" />
+      <Text layoutX="58.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valore minimo supporto" />
+      <Text layoutX="302.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valore minimo grow rate" />
+      <TextField fx:id="minsup" layoutX="203.0" layoutY="135.0" prefHeight="25.0" prefWidth="43.0" />
+      <TextField fx:id="minGr" layoutX="449.0" layoutY="135.0" prefHeight="25.0" prefWidth="43.0" />
+      <Separator layoutX="46.0" layoutY="183.0" prefHeight="3.0" prefWidth="509.0" />
+      <ImageView fitHeight="37.0" fitWidth="185.0" layoutX="555.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/mining.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

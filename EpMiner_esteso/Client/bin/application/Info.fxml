@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Info">
+   <children>
+      <Button fx:id="indietro" layoutX="400.0" layoutY="457.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="29.0" prefWidth="86.0" text="Indietro">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Text fx:id="infotext" layoutX="43.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informazioni su Ep_Miner:" textAlignment="CENTER" wrappingWidth="205.0390625">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Text>
+      <TextArea editable="false" layoutX="43.0" layoutY="74.0" prefHeight="365.0" prefWidth="413.0" text="EPMiner è un'applicazione Client/Server realizzata per implementare l’algoritmo Apriori che elabora dati estratti da tabelle presenti all'interno di un database nella parte Server; per poter utilizzare l'applicazione è indispendabile avere il Server acceso e in ascolto.&#10;&#10;Ad applicazione avviata, sarà richiesta la compilazione dei seguenti campi per l'inserimento dei dati necessari all'elaborazione di una richiesta:&#10;- nome della tabella Target;&#10;- nome della tabella Background;&#10;- valore del minimo supporto;&#10;- valore del minimo growrate.&#10;&#10;Successivamente, sarà necessario scegliere un'opzione fra &lt;Nuova scoperta&gt; e &lt;Risultati in archivio&gt;; la prima opzione effettua una nuova ricerca di pattern frequenti ed emergenti, la seconda permette di leggere una precedente ricerca salvata nell'archivio. &#10;&#10;Azioni:&#10;Avvia - creazione connessione e accesso alle funzionalità&#10;Elabora richiesta - effettua una richiesta in base ai dati inseriti nei campi&#10;? - visualizzazione di avvertenze per il giusto inserimento dei dati&#10;Cancella - reset dei campi&#10;Indietro - chiusura della connessione del Client in esecuzione e ritorno alla schermata di Welcome&#10;Esci - chiusura dell'applicazione&#10;&#10;Attenzione:&#10;Nel caso in cui il Server venga spento dopo aver già effettuato una prima richiesta e se ne voglia effettuare un'altra, seguire questi precisi passaggi:&#10;1. Premere Indietro&#10;2. Accendere il Server&#10;3. Premere Avvia" wrapText="true">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>
