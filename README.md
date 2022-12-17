@@ -11,23 +11,6 @@ Studenti:
 * Dimatteo Roberto, 707120 - mail: r.dimatteo6@studenti.uniba.it
 
 ## Root
-- **dataset/** contiene il dataset in formato .csv e l'Ontologia in formato .owl
-- **src/** contiene il codice sorgente in python
-- **images/** contiene l'mmagine della struttura dell'ontologia
-- **doc/** contiene la relazione completa del progetto
-
-## Installazione dei requisiti
-Installare tutte le librerie necessarie dal file requirements.txt con il comando da console nella directory del file ```requirements.txt```:
-
-```pip install -r requirements.txt```
-
-Se python in windows restituisce un errore provare con:
-
-```py -m pip install -r requirements.txt```
-
-## Avvio del sistema
-Per avviare il sistema utilizzare il comando:
-  
-  ```python main.py```
-  
-dalla directory del file ```main.py```
+- **EpMiner_base/** contiene il progetto nella versione base
+- **EpMiner_esteso/** contiene il progetto nella versione estesa con applicazione grafica
+- **SQL Connector e Script/** contiene i connettori per MySQL
